@@ -1,0 +1,27 @@
+{
+  "name": "attested",
+  "version": "0.1.0",
+  "description": "Verifiable receipts for private AI on NEAR: check that an answer came from a hardware-sealed (TEE) model, keep a portable receipt, anchor its hash on NEAR.",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "bin": {
+    "attested": "bin/attested.js"
+  },
+  "scripts": {
+    "demo": "node bin/attested.js demo",
+    "demo:live": "node bin/attested.js demo --live",
+    "test": "node --test --test-reporter=spec \"test/*.test.js\"",
+    "test:live": "ATTESTED_LIVE=1 node --test --test-reporter=spec \"test/live.test.js\"",
+    "build:web": "node scripts/build-web.js",
+    "test:anchor": "ATTESTED_SANDBOX=1 node --test --test-reporter=spec \"test/anchor.test.js\""
+  },
+  "dependencies": {
+    "@noble/curves": "2.4.0",
+    "@noble/hashes": "2.4.0",
+    "near-kit": "0.20.2"
+  }
+}

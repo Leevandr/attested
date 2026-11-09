@@ -1,0 +1,38 @@
+FICTIONAL DOCUMENT FOR DEMONSTRATION. All people, companies, numbers and terms below are invented.
+
+MASTER SERVICES AGREEMENT  (draft v3, CONFIDENTIAL)
+
+Between:
+  Northwind Analytics Ltd., "Client", registered office 10 Example Row, Sampleton, Examplestan
+  Juniper & Fell Design Studio, represented by Mira Oduya, "Contractor",
+  14 Placeholder Lane, Sampleton; payments to account XX00 0000 0000 0000 0000 (fictional)
+
+1. Services. Contractor will deliver brand identity, a product website and "such further
+   materials as Client may reasonably request" for a fixed fee of EUR 18,000.
+
+2. Payment. Client pays within 120 days of invoice. Late payment bears no interest.
+   Client may withhold up to 40% of any invoice "pending satisfaction".
+
+3. Intellectual property. All work product, including Contractor's pre-existing templates,
+   tools and fonts used in the Services, is assigned to Client worldwide and in perpetuity.
+   Contractor waives all moral rights and may not show the work in a portfolio.
+
+4. Liability. Contractor's liability for any loss is unlimited. Client's liability is limited
+   to the fees paid in the previous 30 days.
+
+5. Term and renewal. The agreement renews automatically for successive 24-month periods
+   unless Contractor gives written notice by registered post 180 days before expiry.
+
+6. Termination. Client may terminate at any time without cause and without payment for work
+   in progress. Contractor may terminate only for Client's uncured material breach after 90 days.
+
+7. Exclusivity. For 3 years after termination Contractor will not provide design services to
+   any company in the analytics sector anywhere in the world.
+
+8. Confidentiality. Contractor must keep the terms of this agreement and all Client information
+   confidential indefinitely. Client may disclose the terms freely.
+
+9. Governing law and venue. Laws of Examplestan; exclusive jurisdiction of the courts of
+   Sampleton. Contractor bears all costs of any dispute, including Client's legal fees.
+
+Signed: ____________________  (Client)        ____________________  (Contractor)

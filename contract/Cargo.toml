@@ -1,0 +1,30 @@
+[package]
+name = "receipt-registry"
+description = "Attested: write-once registry of verifiable-receipt hashes anchored on NEAR"
+version = "0.1.0"
+edition = "2024"
+resolver = "3"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+# Versions are pinned exactly on purpose: this contract is meant to be rebuilt
+# bit-for-bit by anyone who audits it, so the toolchain and crates must not drift.
+[dependencies]
+near-sdk = "=5.30.1"
+
+[dev-dependencies]
+near-sdk = { version = "=5.30.1", features = ["unit-testing"] }
+near-workspaces = { version = "=0.24.0", features = ["unstable"] }
+tokio = { version = "1.12.0", features = ["full"] }
+serde_json = "1"
+
+[profile.release]
+codegen-units = 1
+# Tell `rustc` to optimize for small code size.
+opt-level = "z"
+lto = true
+debug = false
+panic = "abort"
+# Opt into extra safety checks on arithmetic operations https://stackoverflow.com/a/64136471/249801
+overflow-checks = true

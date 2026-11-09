@@ -1,0 +1,207 @@
+{
+  "schema_version": "0.4.0",
+  "metadata": {
+    "name": "receipt-registry",
+    "version": "0.1.0",
+    "build": {
+      "compiler": "rustc 1.97.1",
+      "builder": "cargo-near cargo-near-build 0.11.5"
+    },
+    "wasm_hash": "66cwmbMu4RmW4Rjwuy21EALiXMDBCtxJyBTfegwL3GWB"
+  },
+  "body": {
+    "functions": [
+      {
+        "name": "contract_source_metadata",
+        "kind": "view"
+      },
+      {
+        "name": "get_receipt",
+        "doc": " The record for `receipt_hash`, or `null` if it was never registered.",
+        "kind": "view",
+        "params": {
+          "serialization_type": "json",
+          "args": [
+            {
+              "name": "receipt_hash",
+              "type_schema": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/Receipt"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "is_registered",
+        "kind": "view",
+        "params": {
+          "serialization_type": "json",
+          "args": [
+            {
+              "name": "receipt_hash",
+              "type_schema": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "name": "list_receipts",
+        "doc": " Records in registration order as `[receipt_hash, record]` pairs.\n `from_index` defaults to 0, `limit` defaults to 50 and is capped at 100.",
+        "kind": "view",
+        "params": {
+          "serialization_type": "json",
+          "args": [
+            {
+              "name": "from_index",
+              "type_schema": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "format": "uint64",
+                "minimum": 0.0
+              }
+            },
+            {
+              "name": "limit",
+              "type_schema": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "format": "uint64",
+                "minimum": 0.0
+              }
+            }
+          ]
+        },
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/definitions/Receipt"
+                }
+              ],
+              "maxItems": 2,
+              "minItems": 2
+            }
+          }
+        }
+      },
+      {
+        "name": "register_receipt",
+        "doc": " Anchors a receipt hash on chain. Callable once per hash.\n\n Attach a deposit to pay for storage. Measured on a local sandbox: about 0.0034 NEAR\n for a typical call (0.0040 NEAR for the very first call on a fresh contract, which\n also creates the contract's state key). Worst case (128-byte `model_id`, 64-char\n submitter account, first call) is about 0.0053 NEAR, so 0.01 NEAR is always enough.\n Whatever is not needed is refunded to the caller.\n\n Panics (nothing is stored) if: `receipt_hash` or `attestation_digest` is not\n exactly 64 lowercase hex chars, `model_id` is empty / longer than 128 bytes /\n contains control characters, the hash is already registered, or the attached\n deposit is below the storage cost.",
+        "kind": "call",
+        "modifiers": [
+          "payable"
+        ],
+        "params": {
+          "serialization_type": "json",
+          "args": [
+            {
+              "name": "receipt_hash",
+              "type_schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "model_id",
+              "type_schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "attestation_digest",
+              "type_schema": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "$ref": "#/definitions/Receipt"
+          }
+        }
+      },
+      {
+        "name": "total_receipts",
+        "kind": "view",
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      }
+    ],
+    "root_schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "String",
+      "type": "string",
+      "definitions": {
+        "Receipt": {
+          "description": "One anchored receipt. Stored with borsh, returned to callers as JSON.",
+          "type": "object",
+          "required": [
+            "attestation_digest",
+            "model_id",
+            "submitter",
+            "timestamp_ms"
+          ],
+          "properties": {
+            "attestation_digest": {
+              "description": "SHA-256 (64 lowercase hex chars) of the attestation evidence.",
+              "type": "string"
+            },
+            "model_id": {
+              "description": "Model identifier as reported by the attestation, e.g. \"openai/gpt-oss-120b\".",
+              "type": "string"
+            },
+            "submitter": {
+              "description": "Account that registered the hash (the predecessor of the call).",
+              "type": "string"
+            },
+            "timestamp_ms": {
+              "description": "NEAR block timestamp in MILLISECONDS since the Unix epoch.",
+              "type": "integer",
+              "format": "uint64",
+              "minimum": 0.0
+            }
+          }
+        }
+      }
+    }
+  }
+}
